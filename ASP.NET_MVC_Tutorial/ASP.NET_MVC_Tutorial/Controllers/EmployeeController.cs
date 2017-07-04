@@ -9,7 +9,7 @@ namespace ASP.NET_MVC_Tutorial.Controllers
 {
     public class EmployeeController : Controller
     {
-        public ActionResult Index(Int16 departmentId = 0)
+        public ActionResult Index(short departmentId = 0)
         {
             EmployeeContext employeeContext = new EmployeeContext();
             List<Employee> employees;
@@ -26,7 +26,7 @@ namespace ASP.NET_MVC_Tutorial.Controllers
 
         // GET: Employee
         //[Project Url]/Employee/Details/{id}
-        public ActionResult Details(Int16 id)
+        public ActionResult Details(short id)
         {
             //if (id == 0) return RedirectToAction("Index");
 

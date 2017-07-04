@@ -42,5 +42,21 @@ namespace ASP.NET_MVC_Tutorial.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Create(FormCollection formCollection)
+        {
+            string Name = formCollection["Name"];
+            string Gender = formCollection["Gender"];
+            string City = formCollection["City"];
+            DateTime DateOfBirth = Convert.ToDateTime(formCollection["DateOfBirth"]);
+            short DepartmentId = Convert.ToInt16(formCollection["DepartmentID"]);
+
+            EmployeeContext employeeContext = new EmployeeContext();
+            employeeContext.InsertNewEmployee(Name, Gender, City,
+                                                    DepartmentId, DateOfBirth);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

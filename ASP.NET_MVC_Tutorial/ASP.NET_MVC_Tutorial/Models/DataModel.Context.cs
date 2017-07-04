@@ -30,12 +30,8 @@ namespace ASP.NET_MVC_Tutorial.Models
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
     
-        public virtual int InsertNewEmployee(Nullable<short> id, string name, string gender, string city, Nullable<short> departmentId, Nullable<System.DateTime> dateOfBirth)
+        public virtual int InsertNewEmployee(string name, string gender, string city, Nullable<short> departmentId, Nullable<System.DateTime> dateOfBirth)
         {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("Id", id) :
-                new ObjectParameter("Id", typeof(short));
-    
             var nameParameter = name != null ?
                 new ObjectParameter("Name", name) :
                 new ObjectParameter("Name", typeof(string));
@@ -56,7 +52,7 @@ namespace ASP.NET_MVC_Tutorial.Models
                 new ObjectParameter("DateOfBirth", dateOfBirth) :
                 new ObjectParameter("DateOfBirth", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertNewEmployee", idParameter, nameParameter, genderParameter, cityParameter, departmentIdParameter, dateOfBirthParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertNewEmployee", nameParameter, genderParameter, cityParameter, departmentIdParameter, dateOfBirthParameter);
         }
     }
 }

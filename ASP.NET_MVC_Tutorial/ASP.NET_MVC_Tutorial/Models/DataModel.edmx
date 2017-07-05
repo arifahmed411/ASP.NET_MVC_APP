@@ -42,6 +42,14 @@
           <Parameter Name="DepartmentId" Type="smallint" Mode="In" />
           <Parameter Name="DateOfBirth" Type="datetime2" Mode="In" />
         </Function>
+        <Function Name="spSaveEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="smallint" Mode="In" />
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="Gender" Type="varchar" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="DepartmentId" Type="smallint" Mode="In" />
+          <Parameter Name="DateOfBirth" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="App_ModelStoreContainer">
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -100,6 +108,14 @@
             <Parameter Name="DepartmentId" Mode="In" Type="Int16" />
             <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="UpdateEmployee">
+            <Parameter Name="Id" Mode="In" Type="Int16" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="DepartmentId" Mode="In" Type="Int16" />
+            <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -128,6 +144,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="InsertNewEmployee" FunctionName="App_Model.Store.spAddEmployee" />
+          <FunctionImportMapping FunctionImportName="UpdateEmployee" FunctionName="App_Model.Store.spSaveEmployee" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

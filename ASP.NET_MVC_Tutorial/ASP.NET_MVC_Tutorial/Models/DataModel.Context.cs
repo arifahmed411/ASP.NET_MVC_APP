@@ -54,5 +54,34 @@ namespace ASP.NET_MVC_Tutorial.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertNewEmployee", nameParameter, genderParameter, cityParameter, departmentIdParameter, dateOfBirthParameter);
         }
+    
+        public virtual int UpdateEmployee(Nullable<short> id, string name, string gender, string city, Nullable<short> departmentId, Nullable<System.DateTime> dateOfBirth)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(short));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var genderParameter = gender != null ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var departmentIdParameter = departmentId.HasValue ?
+                new ObjectParameter("DepartmentId", departmentId) :
+                new ObjectParameter("DepartmentId", typeof(short));
+    
+            var dateOfBirthParameter = dateOfBirth.HasValue ?
+                new ObjectParameter("DateOfBirth", dateOfBirth) :
+                new ObjectParameter("DateOfBirth", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateEmployee", idParameter, nameParameter, genderParameter, cityParameter, departmentIdParameter, dateOfBirthParameter);
+        }
     }
 }

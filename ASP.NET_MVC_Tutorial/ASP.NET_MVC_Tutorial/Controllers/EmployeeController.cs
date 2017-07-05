@@ -24,6 +24,28 @@ namespace ASP.NET_MVC_Tutorial.Controllers
             return View(employees);
         }
 
+        [HttpGet]
+        public ActionResult Edit(short id)
+        {
+            EmployeeContext employeeContext = new EmployeeContext();
+            Employee employee = employeeContext.Employees.Single(emp => emp.Id == id);
+            return View(employee);
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        public ActionResult UpdateEmployee(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                EmployeeContext employeeContext = new EmployeeContext();
+                employeeContext.UpdateEmployee(employee.Id, employee.Name, employee.Gender, 
+                                                employee.City, employee.DepartmentId, employee.DateOfBirth);
+                return RedirectToAction("Index");
+            }
+            return View(employee);
+        }
+
         // GET: Employee
         //[Project Url]/Employee/Details/{id}
         public ActionResult Details(short id)
@@ -43,20 +65,67 @@ namespace ASP.NET_MVC_Tutorial.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(FormCollection formCollection)
+        [ActionName("Create")]
+        public ActionResult CreateNewEmployee()
         {
-            string Name = formCollection["Name"];
-            string Gender = formCollection["Gender"];
-            string City = formCollection["City"];
-            DateTime DateOfBirth = Convert.ToDateTime(formCollection["DateOfBirth"]);
-            short DepartmentId = Convert.ToInt16(formCollection["DepartmentID"]);
 
-            EmployeeContext employeeContext = new EmployeeContext();
-            employeeContext.InsertNewEmployee(Name, Gender, City,
-                                                    DepartmentId, DateOfBirth);
+            Employee employee = new Employee();
+            TryUpdateModel(employee);
+            if (ModelState.IsValid)
+            {
+                EmployeeContext employeeContext = new EmployeeContext();
+                //employeeContext.Employees.Add(employee);
+                //employeeContext.SaveChanges();
+                employeeContext.InsertNewEmployee(employee.Name, employee.Gender, employee.City,
+                                                        employee.DepartmentId, employee.DateOfBirth);
+                return RedirectToAction("Index");
+            }
 
-            return RedirectToAction("Index");
+            return View();            
         }
+
+        //[HttpPost]
+        //[ActionName("Create")]
+        //public ActionResult CreateNewEmployee(Employee employee)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        EmployeeContext employeeContext = new EmployeeContext();
+        //        //employeeContext.Employees.Add(employee);
+        //        //employeeContext.SaveChanges();
+        //        employeeContext.InsertNewEmployee(employee.Name, employee.Gender, employee.City,
+        //                                                employee.DepartmentId, employee.DateOfBirth);
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //public ActionResult Create(string name, string gender, string city, short departmentId, DateTime dateOfBirth)
+        //{
+        //    EmployeeContext employeeContext = new EmployeeContext();
+        //    employeeContext.InsertNewEmployee(name, gender, city,
+        //                                            departmentId, dateOfBirth);
+
+        //    return RedirectToAction("Index");
+        //}
+
+        //[HttpPost]
+        //public ActionResult Create(FormCollection formCollection)
+        //{
+        //    string Name = formCollection["Name"];
+        //    string Gender = formCollection["Gender"];
+        //    string City = formCollection["City"];
+        //    DateTime DateOfBirth = Convert.ToDateTime(formCollection["DateOfBirth"]);
+        //    short DepartmentId = Convert.ToInt16(formCollection["DepartmentID"]);
+
+        //    EmployeeContext employeeContext = new EmployeeContext();
+        //    employeeContext.InsertNewEmployee(Name, Gender, City,
+        //                                            DepartmentId, DateOfBirth);
+
+        //    return RedirectToAction("Index");
+        //}
 
     }
 }

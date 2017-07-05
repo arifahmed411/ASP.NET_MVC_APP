@@ -11,14 +11,20 @@ namespace ASP.NET_MVC_Tutorial.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Employee
     {
         public short Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Gender { get; set; }
+        [Required]
         public string City { get; set; }
+        [Required]
         public short DepartmentId { get; set; }
+        [Required]
         public System.DateTime DateOfBirth { get; set; }
     
         public virtual Department Department { get; set; }

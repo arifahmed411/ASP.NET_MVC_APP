@@ -24,6 +24,18 @@ namespace ASP.NET_MVC_Tutorial.Controllers
             return View(employees);
         }
 
+        // GET: Employee
+        //[Project Url]/Employee/Details/{id}
+        public ActionResult Details(short id)
+        {
+            //if (id == 0) return RedirectToAction("Index");
+
+            EmployeeContext employeeContext = new EmployeeContext();
+            Employee employee = employeeContext.Employees.Single(emp => emp.Id == id);
+
+            return View(employee);
+        }
+
         [HttpGet]
         public ActionResult Edit(short id)
         {
@@ -42,24 +54,31 @@ namespace ASP.NET_MVC_Tutorial.Controllers
             //UpdateModel(employee, null, null, new string[] { "Name" });
             if (ModelState.IsValid)
             {
-                employeeContext.UpdateEmployee(employee.Id, employee.Name, employee.Gender, 
+                employeeContext.UpdateEmployee(employee.Id, employee.Name, employee.Gender,
                                                 employee.City, employee.DepartmentId, employee.DateOfBirth);
                 return RedirectToAction("Index");
             }
             return View(employee);
         }
 
-        // GET: Employee
-        //[Project Url]/Employee/Details/{id}
-        public ActionResult Details(short id)
-        {
-            //if (id == 0) return RedirectToAction("Index");
+        //[HttpPost]
+        //[ActionName("Edit")]
+        //public ActionResult UpdateEmployee([Bind(Exclude = "Name")]Employee employee)
+        ////public ActionResult UpdateEmployee([Bind(Include = "Id, Gender, City, DepartmentId, DateOfBirth"]Employee employee)
+        //{
+        //    EmployeeContext employeeContext = new EmployeeContext();
+        //    employee.Name = employeeContext.Employees.Single(e => e.Id == employee.Id).Name;
 
-            EmployeeContext employeeContext = new EmployeeContext();
-            Employee employee = employeeContext.Employees.Single(emp => emp.Id == id);
-
-            return View(employee);
-        }
+        //    //ModelState.IsValid will return true because the property name is not bound to the employee object
+        //    //The only solution is to remove the Required attribute from the Name property
+        //    if (ModelState.IsValid)
+        //    {
+        //        employeeContext.UpdateEmployee(employee.Id, employee.Name, employee.Gender,
+        //                                        employee.City, employee.DepartmentId, employee.DateOfBirth);
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(employee);
+        //}
 
         [HttpGet]
         public ActionResult Create()

@@ -34,11 +34,14 @@ namespace ASP.NET_MVC_Tutorial.Controllers
 
         [HttpPost]
         [ActionName("Edit")]
-        public ActionResult UpdateEmployee(Employee employee)
+        public ActionResult UpdateEmployee(short id)
         {
+            EmployeeContext employeeContext = new EmployeeContext();
+            Employee employee = employeeContext.Employees.Single(e => e.Id == id);
+            UpdateModel(employee, new string[] { "Id", "Gender", "City", "DepartmentId", "DateOfBirth" });
+            //UpdateModel(employee, null, null, new string[] { "Name" });
             if (ModelState.IsValid)
             {
-                EmployeeContext employeeContext = new EmployeeContext();
                 employeeContext.UpdateEmployee(employee.Id, employee.Name, employee.Gender, 
                                                 employee.City, employee.DepartmentId, employee.DateOfBirth);
                 return RedirectToAction("Index");

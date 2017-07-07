@@ -42,6 +42,9 @@
           <Parameter Name="DepartmentId" Type="smallint" Mode="In" />
           <Parameter Name="DateOfBirth" Type="datetime2" Mode="In" />
         </Function>
+        <Function Name="spDeleteEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="smallint" Mode="In" />
+        </Function>
         <Function Name="spSaveEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="smallint" Mode="In" />
           <Parameter Name="Name" Type="varchar" Mode="In" />
@@ -116,6 +119,9 @@
             <Parameter Name="DepartmentId" Mode="In" Type="Int16" />
             <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="DeleteEmployee">
+          <Parameter Name="Id" Mode="In" Type="Int16" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -145,6 +151,7 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="InsertNewEmployee" FunctionName="App_Model.Store.spAddEmployee" />
           <FunctionImportMapping FunctionImportName="UpdateEmployee" FunctionName="App_Model.Store.spSaveEmployee" />
+          <FunctionImportMapping FunctionImportName="DeleteEmployee" FunctionName="App_Model.Store.spDeleteEmployee" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

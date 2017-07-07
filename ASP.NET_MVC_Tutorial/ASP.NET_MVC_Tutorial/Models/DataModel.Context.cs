@@ -83,5 +83,14 @@ namespace ASP.NET_MVC_Tutorial.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateEmployee", idParameter, nameParameter, genderParameter, cityParameter, departmentIdParameter, dateOfBirthParameter);
         }
+    
+        public virtual int DeleteEmployee(Nullable<short> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteEmployee", idParameter);
+        }
     }
 }

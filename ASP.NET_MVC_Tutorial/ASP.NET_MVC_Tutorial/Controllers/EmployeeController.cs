@@ -36,6 +36,15 @@ namespace ASP.NET_MVC_Tutorial.Controllers
             return View(employee);
         }
 
+        [HttpPost]
+        public ActionResult Delete(short id)
+        {
+            EmployeeContext employeeContext = new EmployeeContext();
+            employeeContext.DeleteEmployee(id);
+            return RedirectToAction("Index");
+
+        }
+
         [HttpGet]
         public ActionResult Edit(short id)
         {
